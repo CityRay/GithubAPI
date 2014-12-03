@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" ng-app="githubsearch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Github Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+
+    <div id="w" ng-controller="SearchController as search">
+        <div>
+            <h1>Search With Github API</h1>
+
+            <p>Enter a single Github username below and click the button to display profile info.</p>
+
+            <input type="text" id="ghusername" ng-model="search.username" placeholder="Github username..." ng-keyup="$event.keyCode == 13 && search.getGitInfo()">
+
+            <button ng-click="search.getGitInfo()">Pull User Data</button>
+
+            <div id="ghapidata" class="clearfix"></div>
+        </div>
+
+        <div ng-show="search.userNotFound">
+            <h2 ng-bind="search.noUserText"></h2>
+        </div>
+
+        <hr>
+        <hr>
+
+        <!-- showview -->
+        <!-- <h3>{{search.user.login}}!!!{{search.loaded}}</h3> -->
+        <div ng-show="search.loaded">
+
+          <h2> {{search.user.name}}
+             <span class="smallname">(@<a href="{{search.user.html_url}}" target="_blank"> {{search.user.login}} </a>)</span>
+          </h2>
+
+          <div class="ghcontent">
+            <div class="avi">
+                <a href="{{ search.user.html_url }}" target="_blank">
+                    <img ng-src="{{ search.user.avatar_url }}" width="150" height="150" alt="{{ search.user.login }}">
+                </a>
+            </div>
+            Followers: {{ search.user.followers }} - Following: {{ search.user.following }}
+            <br>Repos: {{ search.user.public_repos }}</p>
+          </div>
+
+          <div class="repolist clearfix">
+              <p ng-hide="search.reposFound">No repos!</p>
+
+              <div ng-show="search.reposFound">
+                  <p><strong>Repos List:</strong>
+                  </p>
+                  <ul ng-repeat="repo in search.repos">
+                      <li><a href="{{repo.html_url}}" target="_blank"> {{repo.name}} </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+</body>
+
+</html>
