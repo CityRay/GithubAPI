@@ -6,6 +6,10 @@
 }
 
 body, html { margin: 0; }
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
 p { margin: 0; }
 input { width: 50%; }
 
@@ -22,7 +26,3 @@ div.repo {
     cursor: pointer;
 }
 
-#search, #repo, #user { float: left; }
-#search { width: 20%; }
-#repo { width: 60%; }
-#user { width: 20%; }
